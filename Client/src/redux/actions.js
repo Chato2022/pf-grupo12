@@ -34,8 +34,8 @@ import {
 } from "./actionTypes";
 
 
-const url = `http://localhost:3001`; //URL GENERAL
-// const url = `https://pf-grupo12-production-75d0.up.railway.app`; //URL Data-base deploy
+//const url = `http://localhost:3001`; //URL GENERAL
+const url = `https://pf-grupo12-production-75d0.up.railway.app`; //URL Data-base deploy
 
 //Trae todos los usuarios con rol user de la BDD(solo para admin)
 export function getUsers() {
