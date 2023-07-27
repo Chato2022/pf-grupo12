@@ -149,6 +149,7 @@ const getPropertyUserByIdHandler = async (req, res) => {
 const updatePropertyUserHandler = async (req, res) => {
   const { id } = req.params;
   const {
+    image,
     title,
     type,
     address,
@@ -159,11 +160,16 @@ const updatePropertyUserHandler = async (req, res) => {
     startDate,
     endDate,
   } = req.body;
+
   try {
     const property = await getUserPropertyById(id);
+    
 
     if (!property) {
       throw new Error("property not found");
+    }
+    if (image) {
+      property.image = image;
     }
 
     if (title) {

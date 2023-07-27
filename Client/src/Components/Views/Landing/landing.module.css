@@ -12,6 +12,7 @@
   padding: 0;
   box-sizing: border-box;
   scroll-behavior: smooth;
+  overflow-x: hidden;
 }
 
 .containerHero {
@@ -44,6 +45,23 @@
 
 .contact {
   background-color: #dc3545;
-  height: 70vh;
+  height: auto;
+  padding-bottom: 120px;
 }
 
+.aboutText {
+  @media (max-width: 576px) {
+    display: none;
+  }
+}
+
+
+@media (min-width: 1092px) {
+  .aboutText{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left: 120px;
+    padding-right: 120px;
+  }
+}

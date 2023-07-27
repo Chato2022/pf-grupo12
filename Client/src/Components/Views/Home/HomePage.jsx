@@ -21,16 +21,17 @@ function HomePage() {
     dispatch(actions.getAllProperties()).catch((error) => {
       console.error(error);
     });
-  }, [dispatch]);
+  }, []);
 
   //Paginado
+
 
   const currentPage = useSelector((state) => state.page);
   const [itemsPerPage] = useState(8);
 
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
-  const currentItems = properties.slice(indexOfFirstItem, indexOfLastItem);
+  const currentItems = properties?.slice(indexOfFirstItem, indexOfLastItem);
 
   const isLastPage = indexOfLastItem === properties.length;
   const hasNextPage = currentItems.length >= itemsPerPage;
@@ -85,12 +86,12 @@ function HomePage() {
       <div className={style.cards}>
         {currentItems.map((element) => {
           return (
-            <Card
+            <Card className={style.card}
               key={element.id}
               id={element.id}
               image={element.image}
               country={element.country}
-              description={element.description}
+              title={element.title}
               startDate={element.startDate}
               endDate={element.endDate}
               price={element.price}

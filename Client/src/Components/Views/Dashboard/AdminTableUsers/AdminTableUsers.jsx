@@ -99,7 +99,6 @@ const AdminTableUsers = () => {
               <TableCell>Name</TableCell>
               <TableCell>Registration Date</TableCell>
 							<TableCell># Properties</TableCell>
-              <TableCell>Enabled</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -109,17 +108,6 @@ const AdminTableUsers = () => {
 								<TableCell onClick={() => openModal(user)} style={{ cursor: "pointer" }}>{user.name===null||user.lastname===null?null:`${user.name} ${user.lastname}`}</TableCell>
                 <TableCell>{user.createdAt}</TableCell>
                 <TableCell>{user.Properties.length}</TableCell>
-                <TableCell>
-                  <Switch
-                    checked={user.enabled}
-                    color="primary"
-                    inputusers={{ 'aria-label': 'controlled' }}
-                    onChange={() => handleToggle(user.id, !user.enabled)}
-                  />
-                  <Typography variant="body2" color="textSecondary">
-                    {user.enabled ? 'Enabled' : 'Disabled'}
-                  </Typography>
-                </TableCell>
               </TableRow>
             ))}
           </TableBody>

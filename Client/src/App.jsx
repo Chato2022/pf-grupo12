@@ -19,6 +19,7 @@ import Payment from "./Components/Views/Payment/Payment";
 import Dashboard from "./Components/Views/Dashboard/Dashboard";
 import firebaseApp from "./fb";
 import { getAuth } from "firebase/auth";
+import Favorites from './Components/Views/userFavorites/userFavorites';  
 
 const auth = getAuth(firebaseApp);
 
@@ -62,7 +63,8 @@ const App = () => {
             <Route path="/payment" element={<Payment />} />
             <Route path="/Miperfilform" element={<FormPerfil />} />
             <Route path='/user/:id' element={<PerfilUser/>} />
-            <Route path="/update-my-property" element={<FormProperty />} />
+            <Route path="/user/:id/favorites" element={<Favorites/>}/>
+            <Route path="/update-my-property/:id" element={<FormProperty />} />
             {
               userRole==="admin"?<Route path="/admin-dashboard" element={<Dashboard />} />:null
             }
@@ -76,8 +78,6 @@ const App = () => {
           {location.pathname !== "/" && <NavBar />}
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path="/home" element={<HomePage />} />
-            <Route path="/rooms/:id" element={<DetailPropertyPage />} />
           </Routes>
           {location.pathname !== "/" && <Footer />}
         </>

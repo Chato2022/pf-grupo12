@@ -9,31 +9,74 @@
   justify-content: space-between;
   position: sticky;
   top: 0;
+  height: 50px;
   min-width: 100%;
   align-items: center;
   padding-left: 20px;
   padding-right: 15px;
+  
 }
 .searchButton {
+  
   border-radius: 50%;
-  width: 35px;
+  width: 40px;
   display: flex;
   align-items: center;
   justify-content: center;
   border: 1px solid rgba(197, 191, 191, 0.63);
+  color: Black;
+ 
  
 }
 .searchButton:hover{
   background-color: rgb(255,56,92);
 }
+.logo{
+  color: rgb(255,56,92)!important;
+  -webkit-text-stroke: 1px #0a0a0a;
+  
+  /* Para navegadores no basados en WebKit */
+  text-stroke: 9px #fff;
+  
+  /* Fuente principal */
+  font-family: 'Montserrat', sans-serif;
+  font-weight: 800;
+  font-size: 30px;
+}
 
 .containerNews{
   display: flex;
 }
-.imgUser{
-  width: 30px;
+
+.containerImg {
+  width: 33.5px;
+  border-radius: 50%;
+  position: absolute;
+  left: 0px;
+  top: 53%;
+  transform: translateY(-50%);
 }
 
+.buttonMenu {
+  color: black !important;
+  background-color: rgba(61, 11, 11, 0) !important;
+  border: 1px solid rgba(197, 191, 191, 0.63);
+  border-radius: 100px !important;
+  height: 35px;
+  display: flex !important;
+  width: 65px;
+  align-items: center;
+  position: relative;
+  padding-left: 30px; /* Ajustar el valor según el espacio que desees entre la imagen y el texto */
+}
+
+/* SIRVE PARA QUE LA IMAGEN SEA SIEMPRE DEL MISMO TAMAÑO  */
+.imgUser {
+  width: 100%;
+  aspect-ratio: 1/1; /* Proporción 1:1 para mantener la imagen cuadrada */
+  border-radius: 50%;
+  object-fit: cover; /* La imagen se ajustará para cubrir todo el contenedor sin perder la relación de aspecto */
+}
 .buttonMenu button{
   border: none;
   color: black !important;
@@ -41,16 +84,13 @@
   background-color: rgba(61, 11, 11, 0) !important;
 
 }
+.search{
+  border-radius: 30px;
+}
 
- .buttonMenu{
-  color: black !important;
-  border-radius: 50%;
-  background-color: rgba(61, 11, 11, 0) !important;
-  border: 1px solid rgba(197, 191, 191, 0.63);
-  border-radius: 100px !important;
-  height: 35px;
-  
-  display: flex;
-  align-items: center;
- 
- }
+  @media (max-width: 460px) {
+    .search {
+      width: 120px; /* Set your desired smaller width here */
+    }
+  }
+

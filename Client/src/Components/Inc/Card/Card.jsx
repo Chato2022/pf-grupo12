@@ -15,7 +15,7 @@ function CardComponent({
   id,
   image,
   country,
-  description,
+  title,
   startDate,
   endDate,
   price,
@@ -32,11 +32,15 @@ function CardComponent({
   // Calcular el promedio solo para los scores habilitados
   const promedio = calcularPromedio(enabledScoresArray);
 
-  console.log(enabledArray);
+ 
 
   return (
     <Card className={style.card} style={{ width: "20vw", height: "25vw" }}>
+      <div className={style.containerImg}>
       <Card.Img className={style.img} variant="top" src={image} />
+
+      </div>
+      
       <Card.Body className={style.cardBody}>
         <div className={style.contanerTittle}>
           <Link className={style.link} to={`/rooms/${id}`}>
@@ -45,7 +49,7 @@ function CardComponent({
           <span>☆ {promedio}</span>
         </div>
 
-        <p>{description}</p>
+        <p>{title}</p>
         <p>
           Available from {startDate} to {endDate}
         </p>

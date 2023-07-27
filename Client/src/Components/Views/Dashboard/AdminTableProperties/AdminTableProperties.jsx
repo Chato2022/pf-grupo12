@@ -1,10 +1,10 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import styles from "./AdminTableProperties.module.css"
 import {Table,TableBody,TableCell,TableContainer,TableHead,TableRow,TablePagination,Paper,TextField,Switch,Typography,Grid,Modal,Backdrop,Fade} from "@mui/material";import '@fontsource/roboto/400.css';
 import { Button, Card, Carousel} from "react-bootstrap";
 import { Link } from "react-router-dom";
-import { changeEnabledProperty } from "../../../../redux/actions";
+import { changeEnabledProperty, getAllProperties } from "../../../../redux/actions";
 
 
 const AdminTableProperties = () => {   

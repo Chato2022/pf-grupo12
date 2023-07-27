@@ -5,9 +5,9 @@ import PanelRegistrarse from "../../Inc/PanelRegistrarse/PanelRegistrarse"
 
 function Hero () {
     return(
-        <Container fluid className={`${style.containerHero} p-4`} >
+        <Container fluid className={`${style.containerHero}`} >
         <Row className='mt-5'>
-        <Col className='col-12 d-flex text-start text-uppercase align-text-center text-nowrap'>
+        <Col className='col-12 d-flex text-start text-uppercase align-text-center'>
             <h1 className='fw-bolder text-light display-5 fw'>
                 Welcome to <span className='fw-bolder text-danger'>Alohar</span>
             </h1>

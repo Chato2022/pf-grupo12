@@ -97,15 +97,15 @@ function FilterPanel() {
             id="example-modal-sizes-title-lg"
             className={styles.tittleFilter}
           >
-            <span>Filtros</span>
+            <span>Filters</span>
           </Modal.Title>
         </Modal.Header>
         <Modal.Body className={styles.modalBody}>
-          <h4>Rango de precios</h4>
+          <h4>Price range</h4>
           <div className={styles.containerInputs}>
             <div className={styles.containerInput1}>
               <label className={styles.labelPrice} htmlFor="priceMin">
-                Mínimo
+                Min
               </label>
               <div>
                 <span>$</span>
@@ -118,7 +118,7 @@ function FilterPanel() {
               </div>
             </div>
             <div className={styles.containerInput1}>
-              <label htmlFor="priceMax">Máximo</label>
+              <label htmlFor="priceMax">Max</label>
               <div>
                 <span htmlFor="priceMax">$</span>
                 <input
@@ -130,14 +130,14 @@ function FilterPanel() {
               </div>
             </div>
           </div>
-          <h4 className={styles.tittleType}>Países</h4>
+          <h4 className={styles.tittleType}>Countries</h4>
           <Form.Select
             aria-label="Default select example"
             className={styles.select}
             value={selectedCountry}
             onChange={handleSelectedCountryChange}
           >
-            <option value="">Países</option>
+            <option value="">Countries</option>
             {countries.map((country) => (
               <option key={country} value={country}>
                 {country}
@@ -145,7 +145,7 @@ function FilterPanel() {
             ))}
 
           </Form.Select>
-          <h4 className={styles.tittleType}>Tipo de propiedad</h4>
+          <h4 className={styles.tittleType}>Property type</h4>
           <ToggleButtonGroup
             type="checkbox"
             value={selectedTypes}
@@ -204,7 +204,7 @@ function FilterPanel() {
         </Modal.Body>
         <Modal.Footer className={styles.modalFooter}>
           <Button variant="secondary" onClick={handleReset}>
-            Borrar todo
+            Clear all
           </Button>
           <Button variant="primary" onClick={handleSaveChanges}>
             Save changes

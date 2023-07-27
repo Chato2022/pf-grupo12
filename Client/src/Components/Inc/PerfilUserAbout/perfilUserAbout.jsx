@@ -2,6 +2,7 @@ import { Col, Button } from 'react-bootstrap';
 import { Link } from "react-router-dom";
 
 
+
 function PerfilUserAbout ({ user, profileIsCurrentUser }) {
     return(
         <Col>

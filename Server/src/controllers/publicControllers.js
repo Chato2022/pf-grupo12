@@ -87,6 +87,7 @@ const getPropertyDetail = async (id) => {
             "language",
             "image",
             "description",
+            "email"
           ],
         },
       ],

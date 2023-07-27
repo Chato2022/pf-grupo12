@@ -15,6 +15,7 @@ import {
   GET_USERS,
   GET_USER,
   UPDATE_USER,
+  UPDATE_PROPERTY,
   ENABLED_USER,
   GET_ADMINS,
   REGISTER,
@@ -25,12 +26,16 @@ import {
   ENABLED_REVIEW,
   RESET_DETAIL_PROPERTY,
   GET_USER_PROPERTIES,
-  RESET_USER
+  RESET_USER,
+  GET_USER_FAVORITES,
+  ADD_USER_FAVORITES,
+  DELETE_USER_FAVORITES,
+  GET_USER_PROFILE
 } from "./actionTypes";
 
 
-//const url = `http://localhost:3001`; //URL GENERAL
-const url = `https://pf-grupo12-production-75d0.up.railway.app`; //URL Data-base deploy
+const url = `http://localhost:3001`; //URL GENERAL
+// const url = `https://pf-grupo12-production-75d0.up.railway.app`; //URL Data-base deploy
 
 //Trae todos los usuarios con rol user de la BDD(solo para admin)
 export function getUsers() {
@@ -72,6 +77,21 @@ export const updateUser = (id, userData) => {
     } catch (error) {
       console.log(error);
     }
+  };
+};
+
+export const updateProperty = (id, userData) => {
+
+  return async function (dispatch) {
+    try {
+      await axios.put(`${url}/user/property/${id}`, userData);
+
+    } catch (error) {
+      console.log(error);
+    }
+
+    getAllProperties()
+    getPropertiesAvaible()
   };
 };
 //Cambia el estado del usuario del campo enabled, para habilitarlo o deshabilitarlo
@@ -351,3 +371,59 @@ export const getUserProperties = (id) => {
 export const resetUser = () => ({
   type: RESET_USER
 })
+
+export const getUserFavorites = (id) => {
+  return async function(dispatch){
+    try {
+      const { data } = await axios.get(`${url}/user/property/${id}/fav`);
+      return dispatch({
+        type: GET_USER_FAVORITES,
+        payload: data
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export const addUserFavorites = (userId, houseId) => {
+  return async function(dispatch){
+    try {
+      const { data } = await axios.post(`${url}/user/property/${userId}/fav`, { houseId });
+      return dispatch({
+        type: ADD_USER_FAVORITES,
+        payload: data
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export const deleteUserFavorites = (userId, houseId) => {
+  return async function(dispatch){
+    try {
+      await axios.delete(`${url}/user/property/${userId}/fav/${houseId}`);
+      return dispatch({
+        type: DELETE_USER_FAVORITES,
+        payload: houseId
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  }
+}
+
+export const getUserProfile = (id) => {
+  return async function (dispatch) {
+    try {
+      const res = await axios.get(`${url}/user/info/${id}`); //get User
+      return dispatch({
+        type: GET_USER_PROFILE,
+        payload: res.data,
+      });
+    } catch (error) {
+      console.log(error);
+    }
+  };
+};

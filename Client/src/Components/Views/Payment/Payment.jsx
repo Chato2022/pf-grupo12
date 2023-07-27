@@ -6,6 +6,8 @@ import "react-date-range/dist/styles.css";
 import "react-date-range/dist/theme/default.css";
 import { DateRange } from "react-date-range";
 import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+import { useNavigate } from "react-router-dom";
+import Swal from 'sweetalert2'
 
 function Payment() {
   const property = useSelector((state) => state.propertyDetail);
@@ -16,6 +18,8 @@ function Payment() {
       key: "selection",
     },
   ]);
+
+  const navigate = useNavigate()
 
   const paypalOptions = {
     "client-id": "test",
@@ -42,7 +46,17 @@ function Payment() {
     */
 
     // Aquí puedes realizar la lógica que deseas ejecutar cuando el pago se complete con éxito
-    console.log("Payment succeeded!");
+    Swal.fire({
+      title: `Reservation confirmed`,
+      icon: 'success',
+      confirmButtonColor: '#3085d6',
+      confirmButtonText: 'Go to home',
+    }).then((result) => {
+      if (result.isConfirmed) {
+        
+        navigate(`/home`)
+      }
+    })
   }
 
   return (

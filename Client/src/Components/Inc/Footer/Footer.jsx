@@ -1,6 +1,7 @@
 import React from 'react';
 import { Container, Row, Col } from 'react-bootstrap';
 import styles from "./Footer.module.css";
+import { Link } from 'react-router-dom';
 
 const Footer = () => {
   return (
@@ -11,16 +12,16 @@ const Footer = () => {
             <h5>Links</h5>
             <ul className="list-unstyled">{/*CAMBIAR POR ETIQUETAS LINK*/ }
               <li>
-                <a href="#">Home</a>
+                <Link to={"/home"}>Home</Link>
               </li>
               <li>
-                <a href="#">About</a>
+                <Link to={"/new-property"}>Post a property</Link>
               </li>
               <li>
-                <a href="#">Services</a>
+                <Link to={`/user/${localStorage.getItem("loggedIn")}`}>My profile</Link>
               </li>
               <li>
-                <a href="#">Contact</a>
+                <a href="https://github.com/NahueSanz/pf-grupo12">Contact</a>
               </li>
             </ul>
           </Col>
@@ -28,16 +29,16 @@ const Footer = () => {
             <h5>Social Media</h5> {/*CAMBIAR POR BOOTSTRAP ICONS*/ }
             <ul className="list-unstyled">
               <li>
-                <a href="#">Facebook</a>
+                <a href="https://m.facebook.com/">Facebook</a>
               </li>
               <li>
-                <a href="#">Twitter</a>
+                <a href="https://m.Twitter.com/">Twitter</a>
               </li>
               <li>
-                <a href="#">Instagram</a>
+                <a href="https://m.Instagram.com/">Instagram</a>
               </li>
               <li>
-                <a href="#">LinkedIn</a>
+                <a href="https://m.LinkedIn.com/">LinkedIn</a>
               </li>
             </ul>
           </Col>

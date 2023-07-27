@@ -1,3 +1,6 @@
+.containerUltraPrincipal{
+  min-height: 90vh;
+}
 .containerPrincipal{
   border: solid 1px black;
   width: 80%;
@@ -6,7 +9,6 @@
   margin-bottom: 20px;
   box-shadow: 1px 1px 15px ;
   background-color: rgba(155, 155, 155, 0.075);
-
 }
 
 .containerPrincipal h2{
@@ -62,20 +64,21 @@
   margin-top: 80px;
 }
 
-.imageContainer{
+/* .imageContainer{
   margin-top: 10px;
   width: 85%;
   height: 158px;
-  overflow: hidden; /* Oculta cualquier parte de la imagen que sobresalga del contenedor */
+  overflow: hidden; 
   box-shadow: 5px 5px 10px ;
   border-radius: 10px;
-
-}
+} */
 
 .imagePreview{
-  width: 100%;
-
-
+  width: 85%;
+  height: fit-content;
+  margin: 10px 0;
+  box-shadow: 5px 5px 10px ;
+  border-radius: 10px;
 }
 
 

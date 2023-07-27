@@ -6,22 +6,22 @@ const { DB_USER, DB_PASSWORD, DB_HOST , DB_NAME, DB_PORT, DB_DEPLOY } = process.
 
 //Si quieren correr de manera local descomenten const sequelize(line9-15)
 // Configura la conexión a la base de datos MySQL
-// const sequelize = new Sequelize(
-//   `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
-//   {
-//     logging: false, // set to console.log to see the raw SQL queries
-//     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
-//     }
-// );
-
-//Deploy con sequelize-->comentar si lo haran de manera local
 const sequelize = new Sequelize(
-  DB_DEPLOY,
+  `postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`,
   {
     logging: false, // set to console.log to see the raw SQL queries
     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
     }
 );
+
+//Deploy con sequelize-->comentar si lo haran de manera local
+// const sequelize = new Sequelize(
+//   DB_DEPLOY,
+//   {
+//     logging: false, // set to console.log to see the raw SQL queries
+//     native: false, // lets Sequelize know we can use pg-native for ~30% more speed
+//     }
+// );
 
 const basename = path.basename(__filename);
 

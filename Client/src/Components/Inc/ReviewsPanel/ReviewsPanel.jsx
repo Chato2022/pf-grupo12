@@ -60,9 +60,11 @@ function ReviewsPanel({idCasa}) {
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Calificar
-      </Button>
+      <div className='d-flex ms-2 mt-5'>
+        <Button variant="danger" onClick={handleShow}>
+            Qualify
+        </Button>
+      </div>
 
       <Modal show={show} onHide={handleClose} >
         <Modal.Header closeButton>
@@ -95,7 +97,9 @@ function ReviewsPanel({idCasa}) {
 
               </div>
               
-              <Button type="submit" className={style.button}>Submit</Button>
+              <div className='mt-2 d-flex justify-content-center'>
+                <Button type="submit" variant='danger'>Submit</Button>
+              </div>
             </Form.Group>
           </Form>
         </Modal.Body>

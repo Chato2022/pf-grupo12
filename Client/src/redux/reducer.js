@@ -1,4 +1,4 @@
-import { 
+import {
   GET_PROPERTIES_AVAIBLE,
   GET_ALL_PROPERTIES,
   GET_PROPERTY_DETAIL,
@@ -24,14 +24,20 @@ import {
   ENABLED_REVIEW,
   RESET_DETAIL_PROPERTY,
   GET_USER_PROPERTIES,
-  RESET_USER
+  RESET_USER,
+  UPDATE_PROPERTY,
+  GET_USER_FAVORITES,
+  ADD_USER_FAVORITES,
+  DELETE_USER_FAVORITES,
+  GET_USER_PROFILE
 } from "./actionTypes";
 
 const initialState = {
   properties: [],
   propertyDetail: {},
+  userFavorites: [],
   allProperties: [],
-  userProperties:[],
+  userProperties: [],
   propertiesAdmin: [],
   allPropertiesAdmin: [],
   users: [],
@@ -45,6 +51,7 @@ const initialState = {
   loggedIn: Boolean(localStorage.getItem("loggedIn")) || false,
   id: '',
   user: {},
+  userProfile: {}
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -113,15 +120,22 @@ const rootReducer = (state = initialState, action) => {
         user: action.payload
       }
 
+    case UPDATE_PROPERTY:/*
+      const newProperties = state.properties.map(prop=>{ 
+        prop.id===action.payload.id;
+        return action.payload
+      })*/
+      return {
+        ...state
+      }
+
     case ENABLED_USER:
       return {
         ...state,
       }
 
     case GET_ADMINS:
-      const filteredAdmins = action.payload.filter((admin) => {
-        admin.id !== localStorage.getItem("loggedIn");
-      })
+      const filteredAdmins = action.payload.filter((admin) => admin.id !== localStorage.getItem("loggedIn"));
       return {
         ...state,
         admins: filteredAdmins,
@@ -255,21 +269,41 @@ const rootReducer = (state = initialState, action) => {
           return el;
         }),
       };
-      case RESET_DETAIL_PROPERTY: 
+    case RESET_DETAIL_PROPERTY:
       return {
         ...state,
         propertyDetail: {}
       }
-      case GET_USER_PROPERTIES : 
-        return {
+    case GET_USER_PROPERTIES:
+      return {
         ...state,
-        userProperties : action.payload
+        userProperties: action.payload
       }
-      case RESET_USER: 
+    case RESET_USER:
       return {
         ...state,
         user: {}
       }
+      case GET_USER_FAVORITES:
+        return {
+            ...state,
+            userFavorites: action.payload
+        }
+      case ADD_USER_FAVORITES: 
+        return {
+            ...state,
+        }
+      case DELETE_USER_FAVORITES :
+        const updateFavs = state.userFavorites.filter(fav => fav.id !== houseId);
+        return{
+          ...state,
+          userFavorites: updateFavs
+        }
+        case GET_USER_PROFILE:
+          return{
+            ...state,
+            userProfile: action.payload
+          }
     default:
       return state;
   }

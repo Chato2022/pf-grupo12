@@ -9,13 +9,14 @@ import Col from 'react-bootstrap/Col';
 import Button from 'react-bootstrap/Button'
 import FavoritesAddNotification from '../../Inc/ModalPropertypage/ModalProperty';
 import profilePicGuess from '../../../assets/guessProfilePic.webp';
-import ReviewsPanel from '../../Inc/ReviewsPanel/ReviewsPanel'
 import PanelComentarios from '../../Inc/PanelComentarios/PanelComentarios'
 import style from './PropertyPage.module.css'
 import { Link } from "react-router-dom";
 import DropdownProperty from '../../Inc/DropDownPropertyDetail/Dropdown';
 import { useNavigate } from "react-router-dom";
-
+import ReviewsPanel from '../../Inc/ReviewsPanel/ReviewsPanel';
+import SpinnerLoading from '../../Inc/SpinnerLoading/Spinner';
+import ContactHostModal from '../../Inc/ContactHostModal/ContactHost';
 
 function calcularPromedio(arr) {
   if (arr.length === 0) return 0;
@@ -40,10 +41,18 @@ function DetailPropertyPage() {
   const ownerId = property.User?.id
   const ownerLanguage = property.User?.language;
   const ownerDescription = property.User?.description;
+  const ownerNumber = property.User?.phonenumber;
+  const ownerEmail = property.User?.email;
   const [ currentUserIsOwner, setCurrentUserIsOwner ] = useState(false);
   const [ isLoading, setIsLoading ] = useState(true);
+  const [showSpinner, setShowSpinner] = useState(true);
 
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowSpinner(false);
+    }, 2000);
+  }, []);
 
   useEffect(() => {
     if(currentUserID === ownerId) {
@@ -68,14 +77,20 @@ function DetailPropertyPage() {
 
     getPropertyData(id);
 
-    return () => dispatch(resetDetailProperty());
   }, [dispatch, id]);
 
     return (
       <Container className={`${style.container} container-fluid container pt-5`}>
-      <Row>
+        {showSpinner && (
+                <Col className="d-flex justify-content-center" style={{ height: '100vh' }}>
+                    <SpinnerLoading/>
+                </Col>
+            )}
+            { !showSpinner && (
+              <>
+              <Row>
         <Col className='col-12 d-flex justify-content-end'> 
-          {currentUserIsOwner ? <DropdownProperty/> : null }
+          {currentUserIsOwner ? <DropdownProperty id={id}/> : null }
         </Col>
         <Col className='p-3 col-12'>
           <Carousel image={property.image}/>
@@ -84,13 +99,13 @@ function DetailPropertyPage() {
           <div className="d-flex align-items-center">
             <p><span className="mr-2 fw-bolder">${property.price} USD</span> night  │ </p>
             <p className='d-inline-flex align-items-center'>
-              <small className='fw-normal'>{property.guests} guests │ </small>
-              <i class="bi bi-star-fill"></i> <span className="ms-1">{promedio}</span>
+              <small className='fw-normal'>{property.guests} guests </small>
             </p>
           </div>
         </Col>
-        <Col className='d-inline-flex text-start col-12'>
-              <h2 className='fw-bold text-uppercase mt-2'>{property.title}</h2> { !currentUserIsOwner ? <FavoritesAddNotification title={property.title} image={property.image}/> : "" }
+        <Col className='d-flex align-items-center text-start col-12'>
+            <h2 className='fw-bold text-uppercase mt-2'>{property.title}</h2>
+            {!currentUserIsOwner ? <FavoritesAddNotification title={property.title} houseId={property.id} image={property.image} className="ms-3" /> : ""}
         </Col>
         <Col className='d-inline-flex text-start col-12 mt-3 mx-auto'>
               <h6>{property.type} hosted by <a onClick={ () => navigate(`/user/${ownerId}`)} className='link-danger link-offset-1' style={{ cursor: 'pointer'}}>{owner}</a></h6>
@@ -109,23 +124,31 @@ function DetailPropertyPage() {
               </p>
               { property.description?.length > 475 && <ReadMore description={property.description} /> }
           </Col>
+          <Col className='p-3 rounded' sm={12} md={12} lg={12}>
+            <hr className='mb-4 border-top border-secondary' style={{ width: "100%" }} />
+            <PanelComentarios idCasa={id}/>
+            { !currentUserIsOwner && <ReviewsPanel idCasa={id}/>}
+          </Col>
           <Col className='p-3 mb-5 rounded text-start col-12'>
             <hr className='mb-4 border-top border-secondary' style={{ width: "100%" }} />
             <div className="d-flex align-items-center">
-              <img src={ownerImage} className='rounded-circle img-fluid profileImage' alt="User picture" style={{ width: "60px", marginRight: "10px", height: '50px' }} />
+              <div className={`${style.containerImg}`}>
+              <img src={ownerImage} className={` ${style.imgPerfil}`}
+ alt="User picture" style={{ }} />
+              </div>
+              
               <div>
                 <h4 className='fw-semibold my-4'>Hosted by {owner}</h4>
               </div>
             </div>
             <Col className='d-flex align-items-center text-start'>
-            <span className="me-2"> <i class="bi bi-star-fill"></i> 23 reviews  </span> 
             {ownerLanguage && <span className='ms-2'>  <i class="bi bi-globe-americas"/> Languages: {ownerLanguage} </span>}
             </Col>
               <p className='lh-sm mt-4 paragraph mb-4'>
                   { ownerDescription?.length > 475 ? ownerDescription.slice(0, 475).concat('...') : ownerDescription }
               </p>
               { ownerDescription?.length > 475 && <ReadMore description={ ownerDescription } /> } 
-              { currentUserIsOwner ? <div className='d-flex justify-content-end'> <Button className='btn-dark' href='/Miperfilform'>Edit profile</Button></div> : <div className='d-flex justify-content-end'> <Button className='btn-dark'>Contact Host</Button> </div> }
+              { currentUserIsOwner ? <div className='d-flex justify-content-end'> <Button className='btn-dark' href='/Miperfilform'>Edit profile</Button></div> : <div className='d-flex justify-content-end'><ContactHostModal ownerNumber={ownerNumber} owner={owner} ownerEmail={ownerEmail}/></div> }
           </Col>
         <Row className={`${style.reserveSm} reserve-sm  shadow bg-body rounded mx-auto border border-white`}>
             <Col className='col-12 text-start'>
@@ -142,20 +165,17 @@ function DetailPropertyPage() {
       {
         !currentUserIsOwner 
         ? <>
-          <Row className={`${style.owner} owner ms-2 shadow rounded w-50 pt-3`}>
+          <Row className={`${style.owner} owner ms-2 shadow rounded pt-3`}>
             <Col className='text-center'>
-            <small className='fw-semibold'>CHECK-IN</small>
-            <input type="date" className='rounded mb-4 mx-2 border border-secondary' placeholder='check-in'/>
-            <small className='fw-semibold'>CHECKOUT</small> 
-            <input type="date" className='rounded mb-4 mx-2 border border-secondary' placeholder='check-in'/>
-            <Button className='btn-danger btn-sm my-2 mx-2' as={Link} to="/payment">Reserve</Button>
+            <small className="fw-bolder">${property.price} USD night</small>
+            <Button className='btn-danger btn-lg my-2 mx-2' as={Link} to="/payment">Reserve</Button>
               </Col>
             </Row>
-            <ReviewsPanel idCasa={id}/>
           </>
           : null
-      }
-      <PanelComentarios idCasa={id}/>
+      }        
+              </>
+            )}
     </Container>
       );
 }

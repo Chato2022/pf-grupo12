@@ -9,6 +9,19 @@
     top: 0;
   }
 
+  .containerImg{
+    width: 50px;
+  border-radius: 50%;
+  margin-right: 10px;
+
+  }
+
+  .imgPerfil{
+    width: 100%;
+    aspect-ratio: 1/1; /* Proporción 1:1 para mantener la imagen cuadrada */
+    border-radius: 50%;
+    object-fit: cover;
+  }
   
 
   @media (max-width: 576px) {
