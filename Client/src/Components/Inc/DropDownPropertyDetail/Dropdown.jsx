@@ -11,8 +11,7 @@ function DropdownProperty({ id }) {
       <Dropdown.Menu variant='dark'>
       <Dropdown.Item as={Link} to={`/update-my-property/${id}`}>
       Edit
-    </Dropdown.Item>
-        <Dropdown.Item href="#/action-2">Delete</Dropdown.Item> 
+    </Dropdown.Item>  
       </Dropdown.Menu>
     </Dropdown>
   );

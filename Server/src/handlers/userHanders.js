@@ -160,9 +160,11 @@ const updatePropertyUserHandler = async (req, res) => {
     startDate,
     endDate,
   } = req.body;
-
+  console.log(image);
   try {
+
     const property = await getUserPropertyById(id);
+    
     
 
     if (!property) {

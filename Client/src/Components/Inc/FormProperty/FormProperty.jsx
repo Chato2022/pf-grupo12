@@ -11,6 +11,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import axios from "axios";
 
 const FormMyProperty = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
 
@@ -69,8 +70,8 @@ const FormMyProperty = () => {
           "https://api.cloudinary.com/v1_1/dgsnukgdu/image/upload",
           formData
         );
-        const imageUrl = response.data.secure_url;
-        values.image = imageUrl;
+        values.image = response.data.secure_url;
+        console.log(values);
       }
    
 
@@ -145,15 +146,15 @@ const FormMyProperty = () => {
             <Form className={styles.propertyForm}>
 
 
-              <div className={`form-group ${styles.formGroupImg}`}>
-                {/* <label htmlFor="image">Image</label> */}
+              {/* <div className={`form-group ${styles.formGroupImg}`}>
+                {}
                 <input
                   key="imageInput"
                   type="file"
                   name="image"
                   onChange={(e) => {
                     handleImageChange(e);
-                    setFieldValue('image', ''); // Limpia el valor del input para permitir cargar la misma imagen en actualizaciones posteriores
+                    setFieldValue('image', '');
                   }}
 
                 />
@@ -166,7 +167,7 @@ const FormMyProperty = () => {
                     />
                   </div>
                 )}
-              </div>
+              </div> */}
 
               <div className={styles.field}>
                 <label htmlFor="">title</label>
