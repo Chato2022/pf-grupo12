@@ -121,6 +121,7 @@ const rootReducer = (state = initialState, action) => {
       }
 
     case UPDATE_PROPERTY:
+      console.log(action.payload);
       const newProperties = state.properties.map(prop=>{ 
         prop.id===action.payload.id;
         return action.payload

@@ -80,12 +80,12 @@ export const updateUser = (id, userData) => {
   };
 };
 
-export const updateProperty = (id, userData) => {
+export const updateProperty = (id, propertyData) => {
 
   return async function (dispatch) {
     try {
-      console.log(userData);
-      const res = await axios.put(`${url}/user/property/${id}`, userData);
+      console.log(propertyData);
+      const res = await axios.put(`${url}/user/property/${id}`, propertyData);
       return dispatch({
         type: UPDATE_PROPERTY,
         payload: res.data,

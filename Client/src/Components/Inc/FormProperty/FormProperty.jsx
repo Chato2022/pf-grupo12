@@ -143,7 +143,7 @@ const FormMyProperty = () => {
           validationSchema={validationSchema}
           onSubmit={handleSubmit}
         >
-          {({ isSubmitting }) => (
+          {({ isSubmitting, setFieldValue }) => (
             <Form className={styles.propertyForm}>
 
 
@@ -265,7 +265,7 @@ const FormMyProperty = () => {
                   name="image"
                   onChange={(e) => {
                     handleImageChange(e);
-                    //setFieldValue('image', ''); // Limpia el valor del input para permitir cargar la misma imagen en actualizaciones posteriores
+                    setFieldValue('image', ''); // Limpia el valor del input para permitir cargar la misma imagen en actualizaciones posteriores
                   }}
 
                 />
