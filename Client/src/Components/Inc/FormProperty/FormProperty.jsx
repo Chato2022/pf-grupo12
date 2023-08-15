@@ -71,9 +71,9 @@ const FormMyProperty = () => {
       );
 
       const imageUrl = response.data.secure_url;
-      values.image = imageUrl;
+      //values.image = imageUrl;
 
-      dispatch(updateProperty(id, values));
+      await dispatch(updateProperty(id, { ...values, image: imageUrl }));
       
       localStorage.setItem("Form", "{}");
       resetForm();
