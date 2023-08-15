@@ -1,47 +1,179 @@
-.mainCard{
+.mainCard {
   margin-top: 2vw;
   width: 80vw;
+  min-height: 100vh;
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+  
 }
 
-.banner{
+.banner {
   width: 60%;
   padding: 0;
 }
 
-.overlay{
-  background-color: rgba(0, 0, 0, 0.5); 
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
   color: aliceblue;
-  
+
 }
 
-.image{
+.image {
   width: 100%;
-  height: fit-content
+  height: fit-content;
 }
 
-.imageText{
+.imageText {
   display: flex;
   flex-direction: column;
   gap: 3vw;
 }
 
 
-.field{
+.field {
   display: flex;
   flex-direction: column;
+  width: 100%;
 }
 
-.propertyForm{
+.fieldPar {
   display: flex;
   flex-direction: column;
+  width: 150px;
+}
+
+.propertyForm {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
   gap: 3vw;
   max-width: 30vw;
+  position: relative;
 }
 
-.imagePreview{
-  max-height: 10vw;
-  width: fit-content;
+.imagePreview {
+  border-radius: 10px;
+  box-shadow: 5px 5px 10px 0;
+  height: 100%;
+  width: 100%;
+}
+.imageContainer{
+  border-radius: 20px;
+  margin-top: 20px;
+  box-shadow: 2px 2px 5px 0;
+  height: 200px;
+  width: 350px;
+}
+.button {
+  
+  background-color: white;
+  color: black;
+  border: 1px solid black;
+  position: absolute;
+  bottom: 0;
+}
+
+.TypCount {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding-top: 0;
+  padding-bottom: 0;
+}
+
+.guestPrice {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  /* padding: 20px; */
+  padding-top: 0;
+  padding-bottom: 0;
+
+}
+
+@media (max-width: 600px) {
+
+  .mainCard {
+    padding: 0;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+  }
+
+  .mainCard Field {
+    border-radius: 40px !important;
+  }
+
+  .banner {
+    width: 100%;
+    height: 50%;
+    border-radius: 30px;
+  }
+
+  .overlay {
+    background-color: rgba(0, 0, 0, 0.5);
+    color: aliceblue;
+
+  }
+
+  .image {
+    width: 100%;
+    height: 250px;
+    border-radius: 30px;
+  }
+
+  .propertyForm {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-width: 100vw;
+    margin-top: 10px;
+  }
+
+  .TypCount {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+
+  .guestPrice {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    padding: 20px;
+    padding-top: 0;
+    padding-bottom: 0;
+
+  }
+
+  .fieldPar {
+    width: 150px;
+  }
+
+  .field {
+    width: 100%;
+    padding-left: 20px;
+    padding-right: 20px;
+    margin-bottom: 10px;
+  }
+
+  .formGroupImg {
+    margin-top: 20px;
+  }
+
+  .imagePreview {
+   width: 100%;
+   height: 100%;
+  }
+
+  .button{
+    margin-top: 20px;
+    position: relative;
+  }
 }

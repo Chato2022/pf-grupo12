@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { Button, Card } from "react-bootstrap";
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import * as Yup from "yup";
@@ -7,13 +7,14 @@ import { updateProperty } from '../../../redux/actions';
 import styles from "../FormProperty/FormProperty.module.css";
 import { countries } from "../../../utils/countries";
 import Swal from 'sweetalert2'
-import { useNavigate, useParams } from "react-router-dom";
+import {useParams } from "react-router-dom";
+import {useNavigate} from "react-router-dom";
 import axios from "axios";
 
 const FormMyProperty = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { id } = useParams();
+  const navigate = useNavigate();
 
   const [image, setImage] = useState(null);
   const [previewImage, setPreviewImage] = useState(null);
@@ -23,12 +24,11 @@ const FormMyProperty = () => {
       .test("no-empty-spaces", "Title cannot contain only spaces", (value) => {
         return !/^\s*$/.test(value);
       }),
-    type: Yup.string().required("Type is required"),
     address: Yup.string()
       .test("no-empty-spaces", "Address cannot contain only spaces", (value) => {
         return !/^\s*$/.test(value);
       }),
-    country: Yup.string().required("Country is required"),
+
     guests: Yup.string()
       .test("no-empty-spaces", "Guests cannot contain only spaces", (value) => {
         return !/^\s*$/.test(value);
@@ -58,48 +58,49 @@ const FormMyProperty = () => {
     }
   };
 
-  const handleSubmit = async (values, { setSubmitting }) => {
+  const handleSubmit = async (values, { setSubmitting, resetForm }) => {
     try {
       const formData = new FormData();
       formData.append("file", image);
       formData.append("upload_preset", "aloharsur88");
       formData.append("cloud_name", "dgsnukgdu");
 
-      if (image) {
-        const response = await axios.post(
-          "https://api.cloudinary.com/v1_1/dgsnukgdu/image/upload",
-          formData
-        );
-        values.image = response.data.secure_url;
-        console.log(values);
-      }
-   
+      const response = await axios.post(
+        "https://api.cloudinary.com/v1_1/dgsnukgdu/image/upload",
+        formData
+      );
+
+      const imageUrl = response.data.secure_url;
+      values.image = imageUrl;
 
       dispatch(updateProperty(id, values));
-
-      setImage(null);
-      setPreviewImage(null);
-      setSubmitting(false);
+      
+      localStorage.setItem("Form", "{}");
+      resetForm();
 
       Swal.fire({
-        title: `Property updated successfully`,
+        title: `Property posted successfully`,
+        text: "Go home?",
         icon: 'success',
+        showCancelButton: true,
         confirmButtonColor: '#3085d6',
-        confirmButtonText: 'Go to Property Detail',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Go home',
+        cancelButtonText:`Keep posting`
       }).then((result) => {
         if (result.isConfirmed) {
-          
-          navigate(`/rooms/${id}`)
+          navigate("/home")
         }
       })
     } catch (error) {
-      console.error("Error al actualizar la propiedad:", error);
+      console.error(error);
+    } finally {
       setSubmitting(false);
     }
   };
 
   return (
-    <div className="d-flex justify-content-center align-items-center">
+    <div className="d-flex p-0 justify-content-center align-items-center">
       <Card className={styles.mainCard}>
         <Card className={styles.banner}>
           {/* Imagen de la tarjeta */}
@@ -146,32 +147,10 @@ const FormMyProperty = () => {
             <Form className={styles.propertyForm}>
 
 
-              {/* <div className={`form-group ${styles.formGroupImg}`}>
-                {}
-                <input
-                  key="imageInput"
-                  type="file"
-                  name="image"
-                  onChange={(e) => {
-                    handleImageChange(e);
-                    setFieldValue('image', '');
-                  }}
-
-                />
-                {previewImage && (
-                  <div className={styles.imageContainer}>
-                    <img
-                      src={previewImage}
-                      alt="Preview"
-                      className={styles.imagePreview}
-                    />
-                  </div>
-                )}
-              </div> */}
 
               <div className={styles.field}>
-                <label htmlFor="">title</label>
-                <Field type="text" name="title" />
+                <label htmlFor="">Title</label>
+                <Field type="text" name="title" className="rounded" />
                 <ErrorMessage
                   name="title"
                   component="div"
@@ -179,25 +158,52 @@ const FormMyProperty = () => {
                 />
               </div>
 
-              <div className={styles.field}>
-                <label htmlFor="">Type</label>
-                <Field as="select" name="type">
-                  <option value="">Select type</option>
-                  <option value="Apartment">Apartment</option>
-                  <option value="Hotel">Hotel</option>
-                  <option value="House">House</option>
-                  <option value="Cabin">Cabin</option>
-                </Field>
-                <ErrorMessage
-                  name="type"
-                  component="div"
-                  className="text-danger"
-                />
+              <div className={styles.TypCount}>
+
+                <div className={styles.fieldPar}>
+                  <label htmlFor="">Type</label>
+                  <Field as="select" name="type" className="rounded ">
+                    <option value="">Select type</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Hotel">Hotel</option>
+                    <option value="House">House</option>
+                    <option value="Cabin">Cabin</option>
+                  </Field>
+                  <ErrorMessage
+                    name="type"
+                    component="div"
+                    className="text-danger"
+                  />
+                </div>
+
+                <div className={styles.fieldPar}>
+                  <label htmlFor="">Country</label>
+                  <Field
+                    as="select"
+                    name="country"
+                    className="rounded"
+
+                  >
+                    <option value="">Select Country</option>
+                    {countries.map((country) => (
+                      <option key={country} value={country}>
+                        {country}
+                      </option>
+                    ))}
+                  </Field>
+                  <ErrorMessage
+                    name="country"
+                    component="div"
+                    className="text-danger"
+                  />
+                </div>
+
               </div>
+
 
               <div className={styles.field}>
                 <label htmlFor="">Address</label>
-                <Field type="tel" name="address" />
+                <Field type="tel" name="address" className="rounded" />
                 <ErrorMessage
                   name="address"
                   component="div"
@@ -205,65 +211,78 @@ const FormMyProperty = () => {
                 />
               </div>
 
-              <div className={styles.field}>
-                <label htmlFor="">Country</label>
-                <Field
-                  as="select"
-                  name="country"
 
-                >
-                  <option value="">Select Country</option>
-                  {countries.map((country) => (
-                    <option key={country} value={country}>
-                      {country}
-                    </option>
-                  ))}
-                </Field>
-                <ErrorMessage
-                  name="country"
-                  component="div"
-                  className="text-danger"
-                />
+
+              <div className={styles.guestPrice}>
+                <div className={styles.fieldPar}>
+                  <label htmlFor="">Guests</label>
+                  <Field type="number" name="guests" placeholder="Max guests" min="1" className="rounded" />
+                  <ErrorMessage
+                    name="guests"
+                    component="div"
+                    className="text-danger"
+                  />
+                </div>
+
+                <div className={styles.fieldPar}>
+                  <label htmlFor="">Price</label>
+                  <Field
+                    type="number"
+                    name="price"
+                    placeholder="Price per night"
+                    min="0"
+                    className="rounded"
+
+                  />
+                  <ErrorMessage
+                    name="price"
+                    component="div"
+                    className="text-danger"
+                  />
+                </div>
+
               </div>
 
-              <div className={styles.field}>
-                <label htmlFor="">Guests</label>
-                <Field type="number" name="guests" placeholder="Max guests" min="1" />
-                <ErrorMessage
-                  name="guests"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
 
-              <div className={styles.field}>
-                <label htmlFor="">Price</label>
-                <Field
-                  type="number"
-                  name="price"
-                  placeholder="Price per night"
-                  min="0"
 
-                />
-                <ErrorMessage
-                  name="price"
-                  component="div"
-                  className="text-danger"
-                />
-              </div>
 
               <div className={styles.field}>
                 <label htmlFor="">Description</label>
-                <Field as="textarea" name="description" />
+                <Field as="textarea" name="description" className="rounded" />
                 <ErrorMessage
                   name="description"
                   component="div"
-                  className="text-danger"
+                  className="text-danger "
 
                 />
               </div>
 
-              <Button variant="primary" type="submit" disabled={isSubmitting}>
+
+              <div className={`form-group ${styles.formGroupImg}`}>
+                <input
+                  key="imageInput"
+                  type="file"
+                  name="image"
+                  onChange={(e) => {
+                    handleImageChange(e);
+                    setFieldValue('image', ''); // Limpia el valor del input para permitir cargar la misma imagen en actualizaciones posteriores
+                  }}
+
+                />
+                <div className={styles.imageContainer}>
+                  {previewImage && (
+
+                    <img
+                      src={previewImage}
+                      alt="Preview"
+                      className={styles.imagePreview}
+                    />
+
+                  )}
+                </div>
+              </div>
+
+              <Button variant="primary" type="submit" disabled={isSubmitting} className={styles.button}>
                 Update Property
               </Button>
             </Form>
@@ -273,5 +292,6 @@ const FormMyProperty = () => {
     </div>
   );
 };
+        
 
 export default FormMyProperty;

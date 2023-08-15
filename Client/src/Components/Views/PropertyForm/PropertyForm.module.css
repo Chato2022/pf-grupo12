@@ -1,25 +1,29 @@
-.containerUltraPrincipal{
+.containerUltraPrincipal {
+
   min-height: 90vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
+
 .containerPrincipal{
   border: solid 1px black;
   width: 80%;
-  margin-left: 10%;
   margin-top: 20px;
   margin-bottom: 20px;
-  box-shadow: 1px 1px 15px ;
-  background-color: rgba(155, 155, 155, 0.075);
+  box-shadow: 0px 0px 10px ;
+  background-color: rgba(255, 255, 255, 0.5);
+  display: flex;
+  flex-direction: center;
+  padding-top: 10px;
 }
 
 .containerPrincipal h2{
   font-family: 'Playfair Display', serif;
-  /* color:  rgba(116, 12, 12, 0.678); */
 }
 .containerPrincipal h2:hover{
   transition: 2s;
  
-  
-
 }
 .container{
   display: flex;
@@ -27,7 +31,7 @@
 }
 
 .form {
-  width: 900px;
+  width: auto;
   margin: 0 auto;
 }
 .container1{
@@ -41,6 +45,8 @@
   border-left: 1px solid rgba(0, 0, 0, 0.493);
   padding-left: 80px;
 }
+
+
 
 
 .selects{
@@ -61,24 +67,27 @@
   margin-top: 20px;
 }
 .formGroupImg{
-  margin-top: 80px;
+  margin-top: 50px;
+}
+.containerImg{
+
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 10px;
+
+  height: 190px;
+  overflow: hidden; 
+  /* box-shadow: 5px 5px 10px ; */
+  border-top: none;
 }
 
-/* .imageContainer{
-  margin-top: 10px;
-  width: 85%;
-  height: 158px;
-  overflow: hidden; 
-  box-shadow: 5px 5px 10px ;
-  border-radius: 10px;
-} */
-
 .imagePreview{
-  width: 85%;
-  height: fit-content;
-  margin: 10px 0;
-  box-shadow: 5px 5px 10px ;
+  width: 100%;
+  height: 100%;
+  aspect-ratio: 1/1; /* Proporción 1:1 para mantener la imagen cuadrada */
   border-radius: 10px;
+
+  object-fit: cover; 
 }
 
 
@@ -101,6 +110,7 @@
 .submit{
   display:flex;
   margin-left: 94% !important;
+  margin-top: 20px;
   margin-bottom: 10px !important;
   background-color: rgba(240, 246, 255, 0);
   border-color: rgba(0, 0, 0, 0.678);
@@ -115,4 +125,144 @@
   border-color: rgb(0, 0, 0);
   box-shadow: 0px 0px 0px ;
  
+}
+
+
+
+@media (max-width: 600px) {
+  .containerUltraPrincipal {
+    max-width: 100%;
+  }
+
+  .containerPrincipal {
+    width: 100%;
+    border-top: none;
+    background-color: rgba(240, 248, 255, 0);
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 20px;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    max-width: 100%;
+    margin-right: 0;
+    margin-left: 0;
+    padding-left: 0px;
+    border: none;
+  }
+
+  .form {
+    width: 90%;
+    margin: 0 auto;
+  }
+
+  .formGroupImg {
+    margin-top: 25px !important;
+  }
+
+  .submit {
+    margin-left: 30% !important;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+  }
+
+  /* Agrega estilos para ajustar las imágenes dentro del contenedor */
+  .containerImg{
+    width: 100%!important;
+    margin-top: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .containerUltraPrincipal {
+    max-width: 100%;
+    font-size: 25px;
+  }
+
+  .containerPrincipal {
+    width: 100%;
+    border-top: none;
+    background-color: rgba(240, 248, 255, 0);
+    margin-top: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+  }
+
+  .container1 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin-right: 0;
+    margin-left: 0;
+  }
+
+  .container2 {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 90%;
+    margin-right: 0;
+    margin-left: 0;
+    padding-left: 0px;
+    border: none;
+  }
+
+  .form {
+    width: 100%;
+    margin: 0 auto;
+  }
+
+  .formGroupImg {
+    margin-top: 25px !important;
+  }
+
+  .submit {
+    margin-left: 45% !important;
+    margin-bottom: 20px !important;
+    margin-top: 20px !important;
+  }
+
+  .containerImg{
+    width: 100%!important;
+    margin-top: 20px;
+  }
+  .error{
+    color: rgb(197, 17, 17)!important;
+    height: 0;
+    font-size: 20px;
+  
+  }
+
 }
