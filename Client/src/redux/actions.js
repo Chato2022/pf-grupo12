@@ -85,7 +85,11 @@ export const updateProperty = (id, userData) => {
   return async function (dispatch) {
     try {
       console.log(userData);
-      await axios.put(`${url}/user/property/${id}`, userData);
+      const res = await axios.put(`${url}/user/property/${id}`, userData);
+      return dispatch({
+        type: UPDATE_PROPERTY,
+        payload: res.data,
+      });
 
     } catch (error) {
       console.log(error);

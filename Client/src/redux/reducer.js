@@ -120,13 +120,15 @@ const rootReducer = (state = initialState, action) => {
         user: action.payload
       }
 
-    case UPDATE_PROPERTY:/*
+    case UPDATE_PROPERTY:
       const newProperties = state.properties.map(prop=>{ 
         prop.id===action.payload.id;
         return action.payload
-      })*/
+      })
       return {
-        ...state
+        ...state,
+        properties: newProperties,
+        allProperties: newProperties
       }
 
     case ENABLED_USER:
